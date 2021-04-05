@@ -11,6 +11,8 @@ import ReduxThunk from 'redux-thunk'
 
 import allReducer from './reducer'
 
+import "react-multi-carousel/lib/styles.css";
+
 let globalState = createStore(allReducer, {}, applyMiddleware(ReduxThunk))
 
 globalState.subscribe(() => console.log("Global State : ", globalState.getState()))

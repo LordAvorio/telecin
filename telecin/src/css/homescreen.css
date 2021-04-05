@@ -1,6 +1,19 @@
+/* font-family: 'Roboto Condensed', sans-serif; */
+/* font-family: 'Dela Gothic One', cursive; */
 
-.TitleCover{
+
+.TitleCover {
     font-family: 'Dela Gothic One', cursive;
     color: #ff884b;
-    font-size: 2.3rem;
+    font-size: 40px;
+}
+
+.ContainerSizing{
+    padding: 5% 5% !important;
+}
+
+.TitleHeader {
+    font-family: 'Dela Gothic One', cursive;
+    color: white;
+    font-size: 25px;
 }

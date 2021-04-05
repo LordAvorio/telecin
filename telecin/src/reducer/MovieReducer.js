@@ -1,5 +1,6 @@
 let INITIAL_STATE = {
   dataTvSeries: [],
+  dataTopRatedSeries: []
 };
 
 const movieReducer = (state = INITIAL_STATE, action) => {
@@ -9,6 +10,11 @@ const movieReducer = (state = INITIAL_STATE, action) => {
         ...state,
         dataTvSeries: action.payload,
       };
+    case "GET_RATED_SERIES":
+      return {
+        ...state,
+        dataTopRatedSeries: action.payload
+      }
     default:
       return state;
   }

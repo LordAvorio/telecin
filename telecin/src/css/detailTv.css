@@ -1,0 +1,95 @@
+.ContainerSizingDetail{
+    padding: 3% 3% !important
+}
+
+.TitleSeries{
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 35px;
+    font-weight: bold;
+    color: #ff884b;
+}
+
+.TrailerTitle{
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 35px;
+    font-weight: bold;
+    color: #ff884b;
+    text-align: center;
+    margin-bottom: 3%;
+}
+
+.marginSpacingDetail{
+    margin-top: 3% !important;
+}
+
+.CardText1{
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 17px;
+    font-weight: medium;
+    margin-bottom: 2%;
+}
+
+.CardText2{
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: medium;
+    color: #ff884b;
+}
+
+.overviewDetail{
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 17px;
+    font-weight: medium;
+    text-align: justify;
+    margin-bottom: 4%;
+    margin-top: 3%;
+}
+
+.CardTextGenres{
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: medium;
+    text-align: center;
+}
+
+.CardDetail{
+    margin: 3% 2%;
+    background-color: #16213e !important;
+    padding: 3%;
+}
+
+.CardGenres{
+    background-color: #ff884b !important;
+    padding: 3%;
+    margin: 3% 5%;
+}
+
+.MarginTitleCard{
+    margin-top: 10% !important;
+}
+
+.MarginTitleCard2{
+    margin-top: 3% !important;
+}
+
+.CardInfo{
+    padding: 2% 0%;
+    background-color: #ff884b;
+    border-radius: 5px;
+    margin-right: 3% !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.CardTextInfo{
+    font-family: 'Roboto Condensed', sans-serif;
+    text-align: center;
+    font-size: 20px;
+    font-style: italic;
+}
+
+.CardTextInfo2{
+    font-family: 'Roboto Condensed', sans-serif;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}

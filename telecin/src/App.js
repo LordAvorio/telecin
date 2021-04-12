@@ -13,6 +13,7 @@ import "../src/css/Prepare.css";
 
 // Import Pages
 import HomeScreen from "./pages/HomeScreen";
+import DetailSeriesScreen from "./pages/DetailSeriesScreen"
 
 const theme = createMuiTheme({
   palette: {
@@ -39,6 +40,7 @@ export default function App() {
         <NavBar />
         <Switch>
           <Route path="/" component={HomeScreen} exact />
+          <Route path="/detailseries" component={DetailSeriesScreen} exact />
         </Switch>
       </div>
     </ThemeProvider>

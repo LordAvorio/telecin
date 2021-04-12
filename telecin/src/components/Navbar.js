@@ -4,9 +4,10 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Slide from "@material-ui/core/Slide";
-import Grid from '@material-ui/core/Grid';
+import Grid from "@material-ui/core/Grid";
+import { Link } from "react-router-dom";
 
-import Logo from '../images/TEL-LOGO.svg'
+import Logo from "../images/TEL-LOGO.svg";
 
 export default function NavBar(props) {
   function HideOnScroll(props) {
@@ -30,15 +31,14 @@ export default function NavBar(props) {
           <Toolbar>
             <Grid container>
               <Grid item xs={2}>
-                <img
-                  src={Logo}
-                  style={{maxWidth: '100%', height: 'auto'}}
-                />
+                <img src={Logo} style={{ maxWidth: "100%", height: "auto" }} />
               </Grid>
               <Grid item xs={8}>
-                <Grid container style={{padding: '1.5% 0%'}}>
+                <Grid container style={{ padding: "1.5% 0%" }}>
                   <Grid item xs={1}>
-                    <p>Home</p>
+                    <Link to="/">
+                      <p>Home</p>
+                    </Link>
                   </Grid>
                   <Grid item xs={1}>
                     <p>List Series</p>

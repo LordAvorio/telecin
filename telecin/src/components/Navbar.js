@@ -6,6 +6,7 @@ import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Slide from "@material-ui/core/Slide";
 import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
 import Logo from "../images/TEL-LOGO.svg";
 
@@ -31,17 +32,23 @@ export default function NavBar(props) {
           <Toolbar>
             <Grid container>
               <Grid item xs={2}>
-                <img src={Logo} style={{ maxWidth: "100%", height: "auto" }} />
+                <img src={Logo} style={{ maxWidth: "100%", height: "auto", margin: '5% 0%' }} />
               </Grid>
               <Grid item xs={8}>
-                <Grid container style={{ padding: "1.5% 0%" }}>
+                <Grid container style={{ padding: "2% 0%" }} spacing={5}>
                   <Grid item xs={1}>
-                    <Link to="/">
-                      <p>Home</p>
+                    <Link to="/" style={{textDecoration: 'none'}}>
+                      <Button variant="outlined" color="secondary">
+                        Home
+                      </Button>
                     </Link>
                   </Grid>
-                  <Grid item xs={1}>
-                    <p>List Series</p>
+                  <Grid item xs={2}>
+                    <Link to="/listseries" style={{textDecoration: 'none'}}>
+                      <Button variant="outlined" color="secondary">
+                        List Series
+                      </Button>
+                    </Link>
                   </Grid>
                 </Grid>
               </Grid>

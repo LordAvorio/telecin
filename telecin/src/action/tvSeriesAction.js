@@ -35,6 +35,29 @@ export const getPopularSeries = () => {
     }
 }
 
+export const getKeywords = (keyword) => {
+    return async(dispatch) => {
+        try{
+            const res = await Axios.get(`https://api.themoviedb.org/3/search/tv?api_key=${KEY}&language=en-US&page=1&query=${keyword}&include_adult=false`)
+            
+            dispatch({
+                type: 'GET_TV_SERIES',
+                payload: res.data.results
+            })
+
+            dispatch({
+                type: 'GET_GENERAL_SERIES',
+                payload: res.data
+            })
+
+
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+}
+
 export const getDetailSeries = (id_series) => {
     return async(dispatch) => {
         try{
@@ -42,6 +65,96 @@ export const getDetailSeries = (id_series) => {
             
             dispatch({
                 type: 'GET_DETAIL_SERIES',
+                payload: res.data
+            })
+
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+}
+
+export const getListSeries = () => {
+    return async(dispatch) => {
+        try{
+            const res = await Axios.get(`https://api.themoviedb.org/3/discover/tv?api_key=${KEY}&language=en-US&sort_by=popularity.desc&page=1`)
+            
+            dispatch({
+                type: 'GET_TV_SERIES',
+                payload: res.data.results
+            })
+
+            dispatch({
+                type: 'GET_GENERAL_SERIES',
+                payload: res.data
+            })
+
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+}
+
+export const getGenreSeries = () => {
+    return async(dispatch) => {
+        try{
+            const res = await Axios.get(`https://api.themoviedb.org/3/genre/tv/list?api_key=${KEY}&language=en-US`)
+            
+            dispatch({
+                type: 'GET_GENRES_SERIES',
+                payload: res.data.genres
+            })
+
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+}
+
+export const getTvSeriesGenre = (genre) => {
+    return async(dispatch) => {
+        try{
+            const res = await Axios.get(`https://api.themoviedb.org/3/discover/tv?api_key=${KEY}&language=en-US&sort_by=popularity.desc&page=1&with_genres=${genre}`)
+            
+            dispatch({
+                type: 'GET_TV_SERIES',
+                payload: res.data.results
+            })
+
+            dispatch({
+                type: 'GET_GENERAL_SERIES',
+                payload: res.data
+            })
+
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+}
+
+export const getListSeriesPagination = (pageList,genreSeries) => {
+    return async(dispatch) => {
+        try{
+            console.log(`Page : ${pageList}`)
+
+            let genre = ''
+            if(genreSeries !== 0){
+                genre = `&with_genres=${genreSeries}`
+            }
+
+            const res = await Axios.get(`https://api.themoviedb.org/3/discover/tv?api_key=${KEY}&language=en-US&page=${pageList}${genre}`)
+            
+            dispatch({
+                type: 'GET_TV_SERIES',
+                payload: res.data.results
+            })
+
+            dispatch({
+                type: 'GET_GENERAL_SERIES',
                 payload: res.data
             })
 

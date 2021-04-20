@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import moment from "moment";
 
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import ReactPlayer from "react-player";
 
@@ -15,7 +15,7 @@ import {
   getDetailSeriesNetwork,
   getDetailSeriesTrailer,
   getDetailSeriesCasting,
-  getDetailSeriesCompanies
+  getDetailSeriesCompanies,
 } from "../action/tvSeriesAction";
 
 import Container from "@material-ui/core/Container";
@@ -30,6 +30,7 @@ import Carousel from "react-multi-carousel";
 import "../css/detailTv.css";
 
 import ProfileScreen from "../images/TEL-PP.svg";
+import CoverScreen from "../images/TELECIN-COVER-DETAIL.svg"
 
 const responsive = {
   superLargeDesktop: {
@@ -55,6 +56,8 @@ export default function DetailSeriesScreen() {
   const authResult = new URLSearchParams(window.location.search);
   const id_series = authResult.get("id");
 
+  const [redirectTo, setRedirectTo] = useState(false)
+
   const {
     detailSeries,
     genredetailseries,
@@ -62,7 +65,7 @@ export default function DetailSeriesScreen() {
     networkDetailSeries,
     trailerDetailSeries,
     castingDetailSeries,
-    companiesDetailSeries
+    companiesDetailSeries,
   } = useSelector((state) => {
     return {
       detailSeries: state.movieReducer.dataDetailSeries,
@@ -71,7 +74,7 @@ export default function DetailSeriesScreen() {
       networkDetailSeries: state.movieReducer.dataDetailNetworkSeries,
       trailerDetailSeries: state.movieReducer.dataDetailTrailerSeries,
       castingDetailSeries: state.movieReducer.dataDetailCastingSeries,
-      companiesDetailSeries: state.movieReducer.dataDetailCompaniesSeries
+      companiesDetailSeries: state.movieReducer.dataDetailCompaniesSeries,
     };
   });
 
@@ -92,20 +95,38 @@ export default function DetailSeriesScreen() {
   }, []);
 
   const openOfficialWebsite = () => {
-    window.open(`${detailSeries.homepage}`, "_blank");
+    if(detailSeries.homepage){
+      window.open(`${detailSeries.homepage}`, "_blank");
+    }else{
+      setRedirectTo(true)
+    }
   };
+
+  if(redirectTo === true){
+    return <Redirect to={`/errorscreen`}/>
+  }
 
   return (
     <div>
       <Container
         maxWidth="xl"
-        style={{
+        style={
+          detailSeries.backdrop_path ?
+          {
           backgroundImage: `url(https://image.tmdb.org/t/p/original/${detailSeries.backdrop_path})`,
           width: "100%",
           height: "500px",
           backgroundRepeat: "no-repeat",
           backgroundSize: "100% 100%",
-        }}
+          marginTop: "5%",
+        } : {
+          backgroundImage: `url(${CoverScreen})`,
+          height: "650px",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          marginTop: "5%",
+        }
+      }
       ></Container>
       <Container maxWidth="xl" className="ContainerSizingDetail">
         <Grid container>
@@ -120,15 +141,19 @@ export default function DetailSeriesScreen() {
                     <p className="CardText1">Genres :</p>
                   </Grid>
                   <Grid container>
-                    {genredetailseries.map((item, index) => {
-                      return (
-                        <Grid item xs={4} key={index}>
-                          <Card className="CardGenres">
-                            <p className="CardTextGenres">{item.name}</p>
-                          </Card>
-                        </Grid>
-                      );
-                    })}
+                    {genredetailseries.length !== 0 ? (
+                      genredetailseries.map((item, index) => {
+                        return (
+                          <Grid item xs={4} key={index}>
+                            <Card className="CardGenres">
+                              <p className="CardTextGenres">{item.name}</p>
+                            </Card>
+                          </Grid>
+                        );
+                      })
+                    ) : (
+                      <p className="CardText2">Not Available</p>
+                    )}
                   </Grid>
                   <Grid container>
                     <Grid item xs={6}>
@@ -137,9 +162,11 @@ export default function DetailSeriesScreen() {
                       </Grid>
                       <Grid item xs={12}>
                         <p className="CardText2">
-                          {moment(detailSeries.first_air_date).format(
-                            "D MMMM YYYY"
-                          )}
+                          {detailSeries.first_air_date
+                            ? moment(detailSeries.first_air_date).format(
+                                "D MMMM YYYY"
+                              )
+                            : "Not Available"}
                         </p>
                       </Grid>
                     </Grid>
@@ -149,9 +176,11 @@ export default function DetailSeriesScreen() {
                       </Grid>
                       <Grid item xs={12}>
                         <p className="CardText2">
-                          {moment(detailSeries.last_air_date).format(
+                          {
+                          detailSeries.last_air_date ?
+                          moment(detailSeries.last_air_date).format(
                             "D MMMM YYYY"
-                          )}
+                          ) : "Not Available"}
                         </p>
                       </Grid>
                     </Grid>
@@ -160,91 +189,103 @@ export default function DetailSeriesScreen() {
                     <p className="CardText1">Producer :</p>
                   </Grid>
                   <Grid container>
-                    {producerDetailSeries.map((item, index) => {
-                      return (
-                        <Grid item xs={2} key={index}>
-                          <Card style={{ margin: "3% 4.5%", padding: "0%" }}>
-                            <CardActionArea>
-                              <CardMedia
-                                image={
-                                  item.profile_path === null
-                                    ? ProfileScreen
-                                    : "https://image.tmdb.org/t/p/original/" +
-                                      item.profile_path
-                                }
-                                title={item.name}
-                                style={{
-                                  width: "100%",
-                                  height: "84px",
-                                  backgroundRepeat: "no-repeat",
-                                  backgroundSize: "100% 100%",
-                                }}
-                              />
-                            </CardActionArea>
-                          </Card>
-                        </Grid>
-                      );
-                    })}
+                    {producerDetailSeries.length !== 0 ? (
+                      producerDetailSeries.map((item, index) => {
+                        return (
+                          <Grid item xs={2} key={index}>
+                            <Card style={{ margin: "3% 4.5%", padding: "0%" }}>
+                              <CardActionArea>
+                                <CardMedia
+                                  image={
+                                    item.profile_path === null
+                                      ? ProfileScreen
+                                      : "https://image.tmdb.org/t/p/original/" +
+                                        item.profile_path
+                                  }
+                                  title={item.name}
+                                  style={{
+                                    width: "100%",
+                                    height: "84px",
+                                    backgroundRepeat: "no-repeat",
+                                    backgroundSize: "cover",
+                                  }}
+                                />
+                              </CardActionArea>
+                            </Card>
+                          </Grid>
+                        );
+                      })
+                    ) : (
+                      <p className="CardText2">Not Available</p>
+                    )}
                   </Grid>
                   <Grid item xs={12} className="MarginTitleCard2">
                     <p className="CardText1">Channel :</p>
                   </Grid>
                   <Grid container>
-                    {networkDetailSeries.map((item, index) => {
-                      return (
-                        <Grid item xs={3} key={index}>
-                          <Card style={{ margin: "3% 5%", padding: "0%" }}>
-                            <CardActionArea>
-                              <CardMedia
-                                image={
-                                  item.logo_path === null
-                                    ? ProfileScreen
-                                    : "https://image.tmdb.org/t/p/original/" +
-                                      item.logo_path
-                                }
-                                title={item.name}
-                                style={{
-                                  width: "100%",
-                                  height: "100px",
-                                  backgroundRepeat: "no-repeat",
-                                  backgroundSize: "contain",
-                                }}
-                              />
-                            </CardActionArea>
-                          </Card>
-                        </Grid>
-                      );
-                    })}
+                    {networkDetailSeries.length !== 0 ? (
+                      networkDetailSeries.map((item, index) => {
+                        return (
+                          <Grid item xs={3} key={index}>
+                            <Card style={{ margin: "3% 5%", padding: "0%" }}>
+                              <CardActionArea>
+                                <CardMedia
+                                  image={
+                                    item.logo_path === null
+                                      ? ProfileScreen
+                                      : "https://image.tmdb.org/t/p/original/" +
+                                        item.logo_path
+                                  }
+                                  title={item.name}
+                                  style={{
+                                    width: "100%",
+                                    height: "100px",
+                                    backgroundRepeat: "no-repeat",
+                                    backgroundSize: "100% 50%",
+                                  }}
+                                />
+                              </CardActionArea>
+                            </Card>
+                          </Grid>
+                        );
+                      })
+                    ) : (
+                      <p className="CardText2">Not Available</p>
+                    )}
                   </Grid>
                   <Grid item xs={12} className="MarginTitleCard2">
                     <p className="CardText1">Production House :</p>
                   </Grid>
-                  <Grid container style={{marginBottom: '3%'}}>
-                    {companiesDetailSeries.map((item, index) => {
-                      return (
-                        <Grid item xs={3} key={index}>
-                          <Card style={{ margin: "3% 5%", padding: "0%" }}>
-                            <CardActionArea>
-                              <CardMedia
-                                image={
-                                  item.logo_path === null
-                                    ? ProfileScreen
-                                    : "https://image.tmdb.org/t/p/original/" +
-                                      item.logo_path
-                                }
-                                title={item.name}
-                                style={{
-                                  width: "100%",
-                                  height: "100px",
-                                  backgroundRepeat: "no-repeat",
-                                  backgroundSize: "contain",
-                                }}
-                              />
-                            </CardActionArea>
-                          </Card>
-                        </Grid>
-                      );
-                    })}
+                  <Grid container style={{ marginBottom: "3%" }}>
+                    {companiesDetailSeries.length !== 0 ? (
+                      companiesDetailSeries.map((item, index) => {
+                        return (
+                          <Grid item xs={3} key={index}>
+                            <Card style={{ margin: "3% 5%", padding: "0%" }}>
+                              <CardActionArea>
+                                <CardMedia
+                                  image={
+                                    item.logo_path === null
+                                      ? ProfileScreen
+                                      : "https://image.tmdb.org/t/p/original/" +
+                                        item.logo_path
+                                  }
+                                  title={item.name}
+                                  style={{
+                                    width: "100%",
+                                    height: "100px",
+                                    backgroundRepeat: "no-repeat",
+                                    backgroundSize: "100% 85%",
+                                  }}
+                                />
+                              </CardActionArea>
+                            </Card>
+                          </Grid>
+                        );
+                      })
+                    ) : (
+                      <p className="CardText2">Not Available</p>
+                    )}
                   </Grid>
                 </Grid>
               </Card>
@@ -347,7 +388,7 @@ export default function DetailSeriesScreen() {
                     <p className="TrailerTitle">Cast & Crew</p>
                   </Grid>
                   <Grid item xs={12}>
-                    {castingDetailSeries ? (
+                    {castingDetailSeries.length !== 0 ? (
                       <Carousel responsive={responsive}>
                         {castingDetailSeries.map((item, index) => {
                           return (
@@ -373,7 +414,7 @@ export default function DetailSeriesScreen() {
                       </Carousel>
                     ) : (
                       <p className="TrailerTitle">
-                        Cast & Crew Is Not Available
+                        Cast and Crew Is Not Available
                       </p>
                     )}
                   </Grid>

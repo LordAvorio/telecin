@@ -1,0 +1,46 @@
+.filterTitle{
+    color: #16213e;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.MuiList-padding{
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+.MuiInputBase-input::before{
+    color: #ff884b !important;
+    border-color: #ff884b !important;
+}
+
+.MuiInputBase-input{
+    color: #ff884b !important;
+    border-color: #ff884b !important;
+}
+
+.MuiInputBase-root::before{
+    color: #ff884b !important;
+    border-color: #ff884b !important;
+    border-width: 3px !important;
+}
+
+.MuiInput-underline::before{
+    color: #ff884b !important;
+    border-color: #ff884b !important;
+}
+
+.MuiInputLabel-animated{
+    color: #ff884b !important;
+}
+
+.MuiSelect-icon{
+    color: #ff884b !important;
+}
+
+
+
+
+

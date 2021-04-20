@@ -9,11 +9,14 @@ import {
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 import NavBar from "./components/Navbar";
+import FooterComponent from './components/Footer'
 import "../src/css/Prepare.css";
 
 // Import Pages
 import HomeScreen from "./pages/HomeScreen";
 import DetailSeriesScreen from "./pages/DetailSeriesScreen"
+import ListSeriesScreen from './pages/ListSeriesScreen'
+import ErrorScreen from './pages/ErrorScreen'
 
 const theme = createMuiTheme({
   palette: {
@@ -40,8 +43,11 @@ export default function App() {
         <NavBar />
         <Switch>
           <Route path="/" component={HomeScreen} exact />
-          <Route path="/detailseries" component={DetailSeriesScreen} exact />
+          <Route path="/detailseries" component={DetailSeriesScreen} />
+          <Route path="/listseries" component={ListSeriesScreen} />
+          <Route path="/errorscreen" component={ErrorScreen} />
         </Switch>
+        <FooterComponent/>
       </div>
     </ThemeProvider>
   );

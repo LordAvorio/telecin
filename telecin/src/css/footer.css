@@ -1,0 +1,31 @@
+.textFooter {
+    font-family: 'Dela Gothic One', cursive;
+    color: #16213e;
+    font-size: 20px;
+}
+
+.textFooter2 {
+    margin-top: 1%;
+    font-family: 'Dela Gothic One', cursive;
+    color: #16213e;
+    font-size: 15px;
+}
+
+.DividerFooter{
+    margin: 3% 0% !important;
+    border-top: 3px solid #16213e !important;
+}
+
+.footerDescription1{
+    font-family: 'Dela Gothic One', cursive;
+    color: #16213e;
+    font-size: 20px;
+}
+
+.footerDescription2{
+    margin: 4% 0%;
+    font-family: 'Roboto Condensed', sans-serif;
+    color: #16213e;
+    font-size: 15px;
+    text-align: justify;
+}
